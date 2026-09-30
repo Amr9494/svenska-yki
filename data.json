@@ -1,0 +1,26 @@
+{
+  "vocabulary": [
+    {"english": "a pedestrian crosswalk", "swedish": "ett övergångsställe", "category": "Transit"},
+    {"english": "a gift card", "swedish": "ett presentkort", "category": "Shopping"},
+    {"english": "I got sick yesterday.", "swedish": "Jag blev sjuk igår.", "category": "Phrases"},
+    {"english": "a receipt", "swedish": "ett kvitto", "category": "Administration"},
+    {"english": "climate change", "swedish": "klimatförändring", "category": "Society"},
+    {"english": "on sale / discounted price", "swedish": "på rea / nedsatt pris", "category": "Shopping"},
+    {"english": "environment", "swedish": "en miljö", "category": "Society"},
+    {"english": "Thanks in advance!", "swedish": "Tack på förhand!", "category": "Phrases"},
+    {"english": "to solve a problem", "swedish": "lösa ett problem", "category": "Verbs"},
+    {"english": "to complain about", "swedish": "klaga på", "category": "Verbs"}
+  ],
+  "grammar": [
+    {"question": "Correct the word order: Nu vi måste handla.", "answer": "Nu måste vi handla. (V2 Rule: finite verb in slot 2)"},
+    {"question": "Where does 'inte' go in this subordinate clause: ...eftersom jag förstår frågan", "answer": "...eftersom jag inte förstår frågan. (BIFF Rule)"},
+    {"question": "Form a direct question: När + stänga + butiken", "answer": "När stänger butiken?"},
+    {"question": "Form an indirect question: Vet du + när + stänga + butiken", "answer": "Vet du när butiken stänger? (Subordinate clause word order)"},
+    {"question": "Fill in the blank (He washes his own car): Han tvättar ___ bil.", "answer": "sin (Possessive reflexive pronoun)"}
+  ],
+  "prompts": [
+    {"question": "Informal Message: You agreed to meet a friend to exercise this weekend, but you are sick. Apologize, explain why you are canceling, and suggest postponing to next week.", "answer": "Key elements to include: 'Hej!', 'tyvärr', 'på grund av', 'ha lust att', 'passar det', 'krya på dig'."},
+    {"question": "Formal Claim: You ordered a tech device online, but it arrived damaged and missing parts. Write to customer service.", "answer": "Key elements to include: Order number, 'trasig', 'saknas', 'leda till / orsaka besvär', demand 'byta ut varan' or 'häva köpet'."},
+    {"question": "Speaking (1-2 min): Argue why municipal authorities should invest more in public tram and bicycle infrastructure.", "answer": "Use PREP framework. P: 'Enligt min mening...', R: 'Huvudorsaken är...', E: 'Till exempel...', P: 'Sammanfattningsvis...'"}
+  ]
+}
