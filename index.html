@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SvenskaMästare YKI — Finlandssvenska & Rikssvenska Tränare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    body.dark {
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --primary-light: #082f49;
+      --accent: #fbbf24;
+      --success: #34d399;
+      --danger: #f87171;
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flag-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-badge {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .voice-control-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+    }
+
+    .voice-select {
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      outline: none;
+      cursor: pointer;
+      max-width: 170px;
+    }
+
+    .btn-icon {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: var(--border);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+
+    .papers-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill-count {
+      font-size: 0.75rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .paper-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-checkbox {
+      display: none;
+    }
+
+    .tag-label {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-label:hover {
+      border-color: var(--primary);
+    }
+
+    .tag-checkbox:checked + .tag-label {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .modes-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .mode-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .mode-btn:hover {
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    .mode-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+
+    .app-screen {
+      display: none;
+    }
+
+    .app-screen.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    /* MATCH MODE */
+    .match-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .match-tile {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      padding: 18px 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s, background-color 0.15s;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .match-tile:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+
+    .match-tile.selected {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: scale(1.02);
+    }
+
+    .match-tile.matched {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--success);
+      color: var(--success);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .match-tile.shake {
+      animation: shakeAnim 0.3s;
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    @keyframes shakeAnim {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* QUIZ MODE */
+    .quiz-card {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .quiz-question-box {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .quiz-type {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .quiz-prompt {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .quiz-context {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: var(--card-bg);
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+
+    .option-btn.wrong {
+      border-color: var(--danger);
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+
+    .quiz-explanation {
+      background: var(--bg);
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 4px 8px 8px 4px;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* SCRAMBLE MODE */
+    .scramble-box {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .scramble-target {
+      min-height: 70px;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .word-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .scramble-chip {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+      user-select: none;
+      transition: all 0.15s;
+    }
+
+    .scramble-chip:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* FLASHCARD MODE */
+    .flashcard-wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 290px;
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .flashcard:hover {
+      border-color: var(--primary);
+    }
+
+    .flashcard-badge {
+      position: absolute;
+      top: 16px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .flashcard-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .flashcard-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .audio-btn {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: transform 0.15s;
+      margin-top: 10px;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .flash-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    /* ESSAY / PROMPT SANDBOX */
+    .prompt-selector {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .essay-textarea {
+      width: 100%;
+      height: 180px;
+      padding: 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      resize: vertical;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .essay-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .word-counter {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+
+    /* CUSTOM CONTENT EDITOR */
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .form-input {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .form-input:focus {
+      outline: 2px solid var(--primary);
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.85rem;
+    }
+
+    .custom-table th, .custom-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .custom-table th {
+      background: var(--bg);
+      font-weight: 700;
+    }
+
+    @media (max-width: 640px) {
+      .header-inner { flex-direction: column; align-items: stretch; }
+      .header-controls { justify-content: space-between; }
+      .match-grid { grid-template-columns: repeat(2, 1fr); }
+      .flashcard { height: 250px; }
+      .flashcard-text { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="flag-icon">🇫🇮</span>
+        <div>
+          <div class="brand-title">SvenskaMästare <span class="brand-badge">YKI Lab</span></div>
+        </div>
+      </div>
+      <div class="header-controls">
+        <div class="voice-control-box" title="TTS Talsyntes — Välj finlandssvenskt eller rikssvenskt uttal">
+          <span>🗣️</span>
+          <select id="voiceSelect" class="voice-select">
+            <option value="auto">Finlandssvenska (sv-FI)</option>
+          </select>
+        </div>
+        <button id="themeToggle" class="btn-icon" title="Växla mörkt läge">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- PAPER SELECTION PANEL -->
+    <section class="papers-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>📚 Välj dina kapitel / studiepapper</span>
+          <span id="activeWordCount" class="pill-count">0 fraser</span>
+        </div>
+        <div>
+          <button id="selectAllBtn" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;">Markera alla</button>
+          <button id="clearAllBtn" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;">Rensa</button>
+        </div>
+      </div>
+      <div class="paper-tags" id="paperTagsContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- NAVIGATION MODES -->
+    <nav class="modes-nav">
+      <button class="mode-btn active" data-target="screen-match">🧩 Matcha par</button>
+      <button class="mode-btn" data-target="screen-quiz">🎯 Flerval / Quiz</button>
+      <button class="mode-btn" data-target="screen-scramble">🔤 Bygg meningen (V2)</button>
+      <button class="mode-btn" data-target="screen-flashcard">🗂️ Flashcards</button>
+      <button class="mode-btn" data-target="screen-writing">✍️ YKI Skrivmallar</button>
+      <button class="mode-btn" data-target="screen-custom">➕ Lägg till egna papper</button>
+    </nav>
+
+    <!-- 1. MATCH MODE SCREEN -->
+    <section id="screen-match" class="app-screen active">
+      <div class="card">
+        <div class="match-stats">
+          <div>Framsteg: <span id="matchScore">0</span> / <span id="matchTotal">0</span> par</div>
+          <button id="resetMatchBtn" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.8rem;">Blanda nya par 🔄</button>
+        </div>
+        <div class="match-grid" id="matchGrid">
+          <!-- Tiles injected here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. QUIZ MODE SCREEN -->
+    <section id="screen-quiz" class="app-screen">
+      <div class="card quiz-card">
+        <div class="quiz-header">
+          <span id="quizCategory">Kapitel</span>
+          <span id="quizProgress">Fråga 1 av 10</span>
+        </div>
+        <div class="quiz-question-box">
+          <div id="quizTypeLabel" class="quiz-type">Översätt / Grammatik</div>
+          <div class="quiz-prompt">
+            <span id="quizQuestionText">Laddar...</span>
+            <button id="quizSpeakBtn" class="audio-btn" style="width: 32px; height: 32px; font-size: 0.9rem;" title="Lyssna">🔊</button>
+          </div>
+          <div id="quizContextText" class="quiz-context"></div>
+        </div>
+        <div class="options-grid" id="quizOptions">
+          <!-- 4 option buttons -->
+        </div>
+        <div id="quizExplanation" class="quiz-explanation"></div>
+        <div style="text-align: right;">
+          <button id="nextQuizBtn" class="btn btn-primary" style="display: none;">Nästa fråga ➡️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WORD ORDER SCRAMBLE SCREEN -->
+    <section id="screen-scramble" class="app-screen">
+      <div class="card scramble-box">
+        <div style="text-align: center; margin-bottom: 16px;">
+          <span class="brand-badge" id="scrambleRuleBadge">V2 Regel Invariant</span>
+          <h3 id="scrambleEnglish" style="margin-top: 8px; font-weight: 700;"></h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Klicka på orden i rätt ordningsföljd. Kom ihåg V2 eller BIFF-regeln!</p>
+        </div>
+        <div class="scramble-target" id="scrambleTarget">
+          <!-- Clicked chips appear here -->
+        </div>
+        <div class="word-pool" id="scramblePool">
+          <!-- Shuffled chips here -->
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button id="resetScrambleBtn" class="btn btn-outline">Börja om ↺</button>
+          <button id="checkScrambleBtn" class="btn btn-primary">Kontrollera ✅</button>
+          <button id="nextScrambleBtn" class="btn btn-success" style="display: none;">Nästa mening ➡️</button>
+        </div>
+        <div id="scrambleFeedback" style="margin-top: 14px; text-align: center; font-weight: 700; font-size: 0.95rem;"></div>
+      </div>
+    </section>
+
+    <!-- 4. FLASHCARDS SCREEN -->
+    <section id="screen-flashcard" class="app-screen">
+      <div class="flashcard-wrapper">
+        <div class="flashcard" id="flashcardBox">
+          <div class="flashcard-badge" id="cardCategory">Kategori</div>
+          <div class="flashcard-text" id="cardFront">Laddar...</div>
+          <div class="flashcard-sub" id="cardBack" style="display: none;"></div>
+          <button id="cardSpeakBtn" class="audio-btn" title="Lyssna med sv-FI">🔊</button>
+        </div>
+        <div class="flash-actions">
+          <button id="prevCardBtn" class="btn btn-outline">⬅️ Förra</button>
+          <button id="flipCardBtn" class="btn btn-primary">Vänd kort 🔄</button>
+          <button id="nextCardBtn" class="btn btn-outline">Nästa ➡️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. YKI WRITING SANDBOX -->
+    <section id="screen-writing" class="app-screen">
+      <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <h3 style="font-weight: 800; margin-bottom: 8px;">YKI Skrivtränare & Insändare</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Välj en officiell modelluppgift och skriv din text. Kontrollera strukturen och se till att alla punkter besvaras.
+        </p>
+
+        <select id="writingPromptSelect" class="prompt-selector">
+          <!-- Dynamically populated -->
+        </select>
+
+        <div id="writingInstructions" style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 0.9rem;">
+          <!-- Loaded instructions -->
+        </div>
+
+        <textarea id="essayInput" class="essay-textarea" placeholder="Skriv din text här på svenska... Kom ihåg hälsning, styckeindelning och artig avslutning!"></textarea>
+
+        <div class="word-counter">
+          <span>Antal ord: <strong id="wordCount">0</strong> ord</span>
+          <span id="targetWordIndicator" style="font-weight: 600;">Rekommenderat: 30–50 ord</span>
+        </div>
+
+        <div style="background: var(--primary-light); padding: 12px 16px; border-radius: 8px; font-size: 0.85rem; color: var(--primary-dark);">
+          <strong>💡 Tips för godkänt (B1/B2):</strong>
+          <div class="checklist-item">✓ Starta med subjektet eller se till att verbet är på plats 2 vid tidsuttryck (t.ex. <em>Idag vill jag...</em>).</div>
+          <div class="checklist-item">✓ Använd sambandsord: <em>eftersom, därför att, dock, å andra sidan</em>.</div>
+          <div class="checklist-item">✓ Dela in varje punkt från instruktionen i ett eget litet stycke!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CUSTOM PAPERS / LOCAL DATA EDITOR -->
+    <section id="screen-custom" class="app-screen">
+      <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <h3 style="font-weight: 800; margin-bottom: 8px;">Lägg till egna ord & papper</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Har du studerat ett nytt papper eller en tidningsartikel? Skriv in nya glosor här så inkluderas de direkt i alla övningslägen!
+        </p>
+
+        <div class="editor-grid">
+          <div class="form-group">
+            <label>Papperets namn / Kategori</label>
+            <input type="text" id="newPaperName" class="form-input" placeholder="t.ex. Papper 4: Hälsovård & Apotek">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div class="form-group">
+              <label>Svenska (ord eller fras)</label>
+              <input type="text" id="newSwedish" class="form-input" placeholder="t.ex. en remiss">
+            </div>
+            <div class="form-group">
+              <label>Engelska (översättning)</label>
+              <input type="text" id="newEnglish" class="form-input" placeholder="t.ex. a referral">
+            </div>
+          </div>
+          <div>
+            <button id="saveCustomItemBtn" class="btn btn-primary">➕ Lägg till fras</button>
+            <button id="exportDataBtn" class="btn btn-outline" style="margin-left: 8px;">Exportera till JSON 💾</button>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 24px; font-weight: 700; font-size: 0.95rem;">Dina sparade egna fraser</h4>
+        <div style="overflow-x: auto;">
+          <table class="custom-table" id="customItemsTable">
+            <thead>
+              <tr>
+                <th>Papper</th>
+                <th>Svenska</th>
+                <th>Engelska</th>
+                <th>Åtgärd</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rendered rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* =========================================================================
+       CORE KNOWLEDGE BASE (From YKI Swedish Strategic Mastery Guide)
+       ========================================================================= */
+    const DEFAULT_GUIDE_DATA = {
+      "Kapitel 0.1: Pronomen": [
+        { sv: "jag", en: "I", cat: "Kapitel 0: Pronomen" },
+        { sv: "mig", en: "me", cat: "Kapitel 0: Pronomen" },
+        { sv: "min / mitt / mina", en: "my / mine", cat: "Kapitel 0: Pronomen" },
+        { sv: "du", en: "you (sing.)", cat: "Kapitel 0: Pronomen" },
+        { sv: "dig", en: "you (obj.)", cat: "Kapitel 0: Pronomen" },
+        { sv: "din / ditt / dina", en: "your / yours", cat: "Kapitel 0: Pronomen" },
+        { sv: "han / honom / hans", en: "he / him / his", cat: "Kapitel 0: Pronomen" },
+        { sv: "hon / henne / hennes", en: "she / her / hers", cat: "Kapitel 0: Pronomen" },
+        { sv: "sin / sitt / sina", en: "his/her/their own (reflexive)", cat: "Kapitel 0: Pronomen" },
+        { sv: "vi / oss / vår", en: "we / us / our", cat: "Kapitel 0: Pronomen" },
+        { sv: "de / dem / deras", en: "they / them / their", cat: "Kapitel 0: Pronomen" }
+      ],
+      "Kapitel 0.2-0.3: Tid & Kalender": [
+        { sv: "på måndag", en: "on coming Monday (future)", cat: "Tid & Kalender" },
+        { sv: "i måndags", en: "last Monday (past)", cat: "Tid & Kalender" },
+        { sv: "på måndagar", en: "every Monday (regular habit)", cat: "Tid & Kalender" },
+        { sv: "klockan är halv nio", en: "the time is 08:30 (half-to-nine)", cat: "Tid & Kalender" },
+        { sv: "i förrgår", en: "the day before yesterday", cat: "Tid & Kalender" },
+        { sv: "i övermorgon", en: "the day after tomorrow", cat: "Tid & Kalender" },
+        { sv: "förra veckan", en: "last week", cat: "Tid & Kalender" },
+        { sv: "nästa vecka", en: "next week", cat: "Tid & Kalender" },
+        { sv: "på våren / på sommaren", en: "in the spring / in the summer", cat: "Tid & Kalender" }
+      ],
+      "Kapitel 0.4-0.5: Familj & Prepositioner": [
+        { sv: "en fru / maka", en: "a wife", cat: "Familj & Relationer" },
+        { sv: "en man / make", en: "a husband", cat: "Familj & Relationer" },
+        { sv: "en son / en dotter", en: "a son / a daughter", cat: "Familj & Relationer" },
+        { sv: "ett barn / barnen", en: "a child / the children", cat: "Familj & Relationer" },
+        { sv: "en granne", en: "a neighbor", cat: "Familj & Relationer" },
+        { sv: "en kollega", en: "a coworker / colleague", cat: "Familj & Relationer" },
+        { sv: "hos läkaren", en: "at the doctor's place", cat: "Prepositioner" },
+        { sv: "på jobbet", en: "at work", cat: "Prepositioner" },
+        { sv: "till biblioteket", en: "to the library (direction)", cat: "Prepositioner" },
+        { sv: "utan bil", en: "without a car", cat: "Prepositioner" }
+      ],
+      "Kapitel 0.6: 4-Tempus Verb": [
+        { sv: "vara, är, var, har varit", en: "to be (inf, pres, pret, sup)", cat: "Starka verb" },
+        { sv: "ha, har, hade, har haft", en: "to have", cat: "Starka verb" },
+        { sv: "komma, kommer, kom, har kommit", en: "to come", cat: "Starka verb" },
+        { sv: "gå, går, gick, har gått", en: "to go, walk", cat: "Starka verb" },
+        { sv: "göra, gör, gjorde, har gjort", en: "to do, make", cat: "Starka verb" },
+        { sv: "ta, tar, tog, har tagit", en: "to take", cat: "Starka verb" },
+        { sv: "se, ser, såg, har sett", en: "to see", cat: "Starka verb" },
+        { sv: "veta, vet, visste, har vetat", en: "to know (facts)", cat: "Starka verb" },
+        { sv: "förstå, förstår, förstod, har förstått", en: "to understand", cat: "Starka verb" },
+        { sv: "skriva, skriver, skrev, har skrivit", en: "to write", cat: "Starka verb" }
+      ],
+      "Kapitel 2: Vardagslexikon (1–60)": [
+        { sv: "en korsning", en: "an intersection / crossing", cat: "Gatan & Trafiken" },
+        { sv: "ett övergångsställe", en: "a pedestrian crosswalk", cat: "Gatan & Trafiken" },
+        { sv: "en hållplats", en: "a bus/tram stop", cat: "Gatan & Trafiken" },
+        { sv: "en tidtabell", en: "a timetable / schedule", cat: "Gatan & Trafiken" },
+        { sv: "en enkelbiljett", en: "a single one-way ticket", cat: "Gatan & Trafiken" },
+        { sv: "en periodbiljett", en: "a seasonal/monthly pass", cat: "Gatan & Trafiken" },
+        { sv: "gå vilse", en: "get lost / lose one's way", cat: "Gatan & Trafiken" },
+        { sv: "en pantautomat", en: "bottle-recycling machine", cat: "I Affären" },
+        { sv: "en självbetjäningskassa", en: "self-service checkout", cat: "I Affären" },
+        { sv: "bäst före-datum", en: "best-before date", cat: "I Affären" },
+        { sv: "spara kvittot", en: "keep the receipt", cat: "I Affären" },
+        { sv: "en hälsocentral", en: "health center / clinic", cat: "Samhällsservice" },
+        { sv: "boka en mottagningstid", en: "book an appointment", cat: "Samhällsservice" },
+        { sv: "en remiss", en: "an official medical referral", cat: "Samhällsservice" },
+        { sv: "ett apotek", en: "a pharmacy", cat: "Samhällsservice" },
+        { sv: "ett recept", en: "a medical prescription", cat: "Samhällsservice" },
+        { sv: "en tvättstuga", en: "a shared laundry room", cat: "Boende" },
+        { sv: "boka tvättid", en: "reserve a laundry slot", cat: "Boende" },
+        { sv: "en felanmälan", en: "a maintenance fault report", cat: "Boende" }
+      ],
+      "Kapitel 6.1: Funktionsverb (1–50)": [
+        { sv: "brukar + inf.", en: "usually do", cat: "Funktionsverb" },
+        { sv: "hålla med om", en: "agree with", cat: "Funktionsverb" },
+        { sv: "tycka om", en: "like, enjoy", cat: "Funktionsverb" },
+        { sv: "anse att", en: "consider/deem that", cat: "Funktionsverb" },
+        { sv: "bero på", en: "depend on", cat: "Funktionsverb" },
+        { sv: "handla om", en: "be about", cat: "Funktionsverb" },
+        { sv: "ta hand om", en: "take care of", cat: "Funktionsverb" },
+        { sv: "se fram emot", en: "look forward to", cat: "Funktionsverb" },
+        { sv: "höra av sig", en: "get in touch", cat: "Funktionsverb" },
+        { sv: "ha råd med", en: "afford", cat: "Funktionsverb" },
+        { sv: "lösa ett problem", en: "solve a problem", cat: "Funktionsverb" },
+        { sv: "fatta ett beslut", en: "make a decision", cat: "Funktionsverb" },
+        { sv: "ställa in", en: "cancel", cat: "Funktionsverb" },
+        { sv: "skjuta upp", en: "postpone", cat: "Funktionsverb" },
+        { sv: "påverka", en: "affect, influence", cat: "Funktionsverb" },
+        { sv: "orsaka", en: "cause", cat: "Funktionsverb" },
+        { sv: "slippa", en: "avoid / not have to", cat: "Funktionsverb" },
+        { sv: "ta reda på", en: "find out", cat: "Funktionsverb" }
+      ],
+      "Kapitel 6.2: Sambandsord (51–85)": [
+        { sv: "eftersom", en: "because / since (BIFF rule)", cat: "Sambandsord" },
+        { sv: "därför att", en: "because (direct cause)", cat: "Sambandsord" },
+        { sv: "därför (V2)", en: "therefore (verb follows directly)", cat: "Sambandsord" },
+        { sv: "dock", en: "however", cat: "Sambandsord" },
+        { sv: "däremot", en: "in contrast / however", cat: "Sambandsord" },
+        { sv: "dessutom", en: "furthermore", cat: "Sambandsord" },
+        { sv: "å ena sidan ... å andra sidan", en: "on the one hand ... on the other hand", cat: "Sambandsord" },
+        { sv: "till exempel", en: "for example", cat: "Sambandsord" },
+        { sv: "trots att", en: "despite the fact that", cat: "Sambandsord" },
+        { sv: "på grund av", en: "due to (+ noun)", cat: "Sambandsord" },
+        { sv: "tack vare", en: "thanks to (+ noun)", cat: "Sambandsord" },
+        { sv: "för det första ... för det andra", en: "firstly ... secondly", cat: "Sambandsord" },
+        { sv: "sammanfattningsvis", en: "in summary", cat: "Sambandsord" },
+        { sv: "enligt min mening", en: "in my opinion", cat: "Sambandsord" }
+      ],
+      "Kapitel 6.3: Talspråk & Reaktioner (86–125)": [
+        { sv: "Det var tråkigt att höra.", en: "Sorry to hear that.", cat: "Reaktioner" },
+        { sv: "Vad synd!", en: "What a pity!", cat: "Reaktioner" },
+        { sv: "Ingen fara alls!", en: "No problem at all!", cat: "Reaktioner" },
+        { sv: "Jag är hemskt ledsen.", en: "I am terribly sorry.", cat: "Reaktioner" },
+        { sv: "Krya på dig!", en: "Get well soon!", cat: "Reaktioner" },
+        { sv: "Det låter som en bra idé.", en: "Sounds like a good idea.", cat: "Reaktioner" },
+        { sv: "Det beror helt på.", en: "That depends entirely.", cat: "Reaktioner" },
+        { sv: "Ledsen för förseningen.", en: "Sorry for the delay.", cat: "Reaktioner" },
+        { sv: "Jag återkommer så snart som möjligt.", en: "I'll get back to you ASAP.", cat: "Reaktioner" },
+        { sv: "Låt mig tänka efter ett ögonblick...", en: "Let me think for a moment (filler)...", cat: "Tidsköpare" }
+      ],
+      "Kapitel 6.4: Reklamation & Ärenden (126–165)": [
+        { sv: "en reklamation", en: "consumer warranty claim", cat: "Reklamation" },
+        { sv: "ett kvitto", en: "receipt", cat: "Reklamation" },
+        { sv: "en garanti", en: "warranty", cat: "Reklamation" },
+        { sv: "en återbetalning", en: "refund", cat: "Reklamation" },
+        { sv: "kundservice / kundtjänst", en: "customer service", cat: "Reklamation" },
+        { sv: "trasig / skadad", en: "broken / damaged", cat: "Reklamation" },
+        { sv: "oacceptabelt", en: "unacceptable", cat: "Reklamation" },
+        { sv: "häva köpet", en: "cancel purchase / get refund", cat: "Reklamation" },
+        { sv: "få pengarna tillbaka", en: "receive money back", cat: "Reklamation" },
+        { sv: "byta mot en ny vara", en: "exchange for a new item", cat: "Reklamation" },
+        { sv: "utan dröjsmål", en: "without delay / promptly", cat: "Reklamation" },
+        { sv: "ett måndagsexemplar", en: "a defective lemon unit", cat: "Reklamation" },
+        { sv: "ett värmeelement", en: "a heating radiator", cat: "Fastighet" }
+      ],
+      "Kapitel 6.5: Samhälle & Miljö (166–220)": [
+        { sv: "kollektivtrafik", en: "public transit", cat: "Samhälle" },
+        { sv: "hållbar utveckling", en: "sustainable development", cat: "Samhälle" },
+        { sv: "minska utsläppen", en: "reduce emissions", cat: "Samhälle" },
+        { sv: "sortera sopor", en: "sort trash / recycling", cat: "Samhälle" },
+        { sv: "distansarbete", en: "remote work / telecommuting", cat: "Samhälle" },
+        { sv: "underlätta vardagen", en: "make daily life easier", cat: "Samhälle" },
+        { sv: "förbättra livskvaliteten", en: "improve quality of life", cat: "Samhälle" },
+        { sv: "spara tid och pengar", en: "save time and money", cat: "Samhälle" },
+        { sv: "för- och nackdelar", en: "pros and cons / advantages & disadvantages", cat: "Samhälle" }
+      ]
+    };
+
+    /* SYNTAX SCRAMBLE ITEMS (V2 & BIFF FOCUS) */
+    const SCRAMBLE_DATA = [
+      {
+        rule: "V2 Regel (Tid först -> Verb på plats 2)",
+        en: "Today I cannot come because I am sick.",
+        words: ["Idag", "kan", "jag", "inte", "komma", "eftersom", "jag", "är", "sjuk."],
+        correct: "Idag kan jag inte komma eftersom jag är sjuk."
+      },
+      {
+        rule: "V2 Regel (Fundament -> Verb 2)",
+        en: "In Finland people usually take a sauna on Saturdays.",
+        words: ["I", "Finland", "brukar", "man", "ofta", "bada", "bastu", "på", "lördagar."],
+        correct: "I Finland brukar man ofta bada bastu på lördagar."
+      },
+      {
+        rule: "BIFF-regeln i bisats (inte före verbet)",
+        en: "I wonder why the bus is not coming.",
+        words: ["Jag", "undrar", "varför", "bussen", "inte", "kommer."],
+        correct: "Jag undrar varför bussen inte kommer."
+      },
+      {
+        rule: "V2 efter 'Därför'",
+        en: "Therefore we must immediately solve this problem.",
+        words: ["Därför", "måste", "vi", "genast", "lösa", "detta", "problem."],
+        correct: "Därför måste vi genast lösa detta problem."
+      },
+      {
+        rule: "Ja/Nej Fråga (Verbet på plats 1)",
+        en: "Can you send a technician tomorrow?",
+        words: ["Kan", "ni", "skicka", "en", "tekniker", "imorgon?"],
+        correct: "Kan ni skicka en tekniker imorgon?"
+      },
+      {
+        rule: "Öppen Fråga (Frågeord + Verb på plats 2)",
+        en: "When does the bus arrive at the station?",
+        words: ["När", "kommer", "bussen", "till", "stationen?"],
+        correct: "När kommer bussen till stationen?"
+      }
+    ];
+
+    /* WRITING SCENARIOS (From Exam Guide) */
+    const WRITING_SCENARIOS = [
+      {
+        title: "Uppgift 1: Informellt meddelande (Avboka möte)",
+        target: "30–50 ord",
+        instructions: `<strong>Situation:</strong> Du och din vän hade bestämt att träffas i helgen för att motionera tillsammans. Du har blivit sjuk.<br>
+        <strong>Krav:</strong>
+        <ol style="margin-left: 20px; margin-top: 6px;">
+          <li>Be om ursäkt och förklara varför du måste ställa in (använd <em>tyvärr, på grund av, sjuk</em>).</li>
+          <li>Föreslå att ni skjuter upp träffen till nästa vecka (använd <em>passar det</em>).</li>
+          <li>Be vännen höra av sig så fort som möjligt.</li>
+        </ol>`
+      },
+      {
+        title: "Uppgift 2: Formell reklamation (Trasig vara)",
+        target: "50–70 ord",
+        instructions: `<strong>Situation:</strong> Du beställde en apparat på nätet som levererades trasig och med delar som saknas.<br>
+        <strong>Krav:</strong>
+        <ol style="margin-left: 20px; margin-top: 6px;">
+          <li>Inled formellt och ange vad du köpt (använd <em>Jag skriver till er angående...</em>).</li>
+          <li>Beskriv felet sakligt (använd <em>skadad, saknas, orsakar besvär</em>).</li>
+          <li>Kräv tydligt antingen byte mot en ny vara eller att häva köpet och få pengarna tillbaka.</li>
+          <li>Avsluta formellt: <em>Med vänlig hälsning</em>.</li>
+        </ol>`
+      },
+      {
+        title: "Uppgift 3: Bostadsärende (Felanmälan kyla/vatten)",
+        target: "50–70 ord",
+        instructions: `<strong>Situation:</strong> Det är vinter och ditt värmeelement fungerar inte som det ska.<br>
+        <strong>Krav:</strong>
+        <ol style="margin-left: 20px; margin-top: 6px;">
+          <li>Anmäl felet till fastighetsskötaren (använd <em>Jag vill anmäla ett fel...</em>).</li>
+          <li>Förklara hur länge det pågått och hur det påverkar lägenheten (använd <em>oacceptabelt</em>).</li>
+          <li>Begär att en reparatör skickas utan dröjsmål.</li>
+        </ol>`
+      },
+      {
+        title: "Uppgift 4: Insändare / Åsiktstext (Kollektivtrafik vs Bilvägar)",
+        target: "100–140 ord",
+        instructions: `<strong>Situation:</strong> Skriv en insändare till en lokaltidning angående förslaget att höja biljettpriserna i kollektivtrafiken.<br>
+        <strong>Krav:</strong>
+        <ol style="margin-left: 20px; margin-top: 6px;">
+          <li>Tydlig rubrik och inledning (<em>I dagens samhälle...</em>).</li>
+          <li>Presentera argument (<em>för det första: spara miljö och minska utsläppen</em>).</li>
+          <li>Bemöt motargument (<em>å ena sidan är det dyrt, men å andra sidan...</em>).</li>
+          <li>Sammanfatta din lösning och förslag till kommunen.</li>
+        </ol>`
+      }
+    ];
+
+    /* =========================================================================
+       APPLICATION STATE & LOCAL STORAGE
+       ========================================================================= */
+    let customUserData = JSON.parse(localStorage.getItem("svenska_custom_papers") || "{}");
+    let allAvailablePapers = { ...DEFAULT_GUIDE_DATA, ...customUserData };
+    let selectedPaperKeys = Object.keys(allAvailablePapers);
+
+    /* TTS Audio State */
+    let availableVoices = [];
+    let selectedVoice = null;
+
+    /* Mode States */
+    let currentQuizIndex = 0;
+    let quizQuestions = [];
+    let currentScrambleIndex = 0;
+    let scrambleSelectedWords = [];
+    let flashcardIndex = 0;
+    let flashcardList = [];
+    let isFlipped = false;
+
+    /* =========================================================================
+       SPEECH SYNTHESIS ENGINE (FINLAND SWEDISH PRIORITIZED)
+       ========================================================================= */
+    function initSpeechEngine() {
+      if (!('speechSynthesis' in window)) {
+        console.warn("Web Speech API stöds inte i denna webbläsare.");
+        return;
+      }
+
+      function populateVoiceList() {
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || voices.length === 0) return;
+        availableVoices = voices;
+
+        const voiceSelect = document.getElementById("voiceSelect");
+        voiceSelect.innerHTML = "";
+
+        // 1. Check for Finland-Swedish voices (sv-FI)
+        const svFIVoices = voices.filter(v => v.lang === "sv-FI" || v.lang === "sv_FI" || (v.lang.startsWith("sv") && v.name.toLowerCase().includes("finland")));
+        // 2. Check for general Swedish voices (sv-SE)
+        const svSEVoices = voices.filter(v => v.lang.startsWith("sv") && !svFIVoices.includes(v));
+
+        let hasFoundVoice = false;
+
+        if (svFIVoices.length > 0) {
+          svFIVoices.forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = v.name;
+            opt.textContent = `🇫🇮 ${v.name} (sv-FI)`;
+            voiceSelect.appendChild(opt);
+          });
+          selectedVoice = svFIVoices[0];
+          hasFoundVoice = true;
+        }
+
+        if (svSEVoices.length > 0) {
+          svSEVoices.forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = v.name;
+            opt.textContent = `🇸🇪 ${v.name} (sv-SE)`;
+            voiceSelect.appendChild(opt);
+          });
+          if (!hasFoundVoice) {
+            selectedVoice = svSEVoices[0];
+            hasFoundVoice = true;
+          }
+        }
+
+        if (!hasFoundVoice) {
+          const opt = document.createElement("option");
+          opt.value = "default_sv";
+          opt.textContent = "Standard sv-FI/sv";
+          voiceSelect.appendChild(opt);
+        }
+      }
+
+      populateVoiceList();
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+      }
+
+      document.getElementById("voiceSelect").addEventListener("change", (e) => {
+        const voiceName = e.target.value;
+        const found = availableVoices.find(v => v.name === voiceName);
+        if (found) selectedVoice = found;
+      });
+    }
+
+    function speakSwedish(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel(); // Stop current playing speech
+
+      // Clean punctuation for clean TTS reading
+      const cleanText = text.split("/")[0].replace(/[()]/g, "").trim();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = "sv-FI"; // Explicit Finland Swedish BCP-47
+      utterance.rate = 0.92; // Slightly measured for language learners
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang;
+      }
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    /* =========================================================================
+       HELPER: ACTIVE VOCABULARY EXTRACTOR
+       ========================================================================= */
+    function getActiveVocabulary() {
+      let items = [];
+      selectedPaperKeys.forEach(k => {
+        if (allAvailablePapers[k]) {
+          items.push(...allAvailablePapers[k]);
+        }
+      });
+      return items;
+    }
+
+    function updateActiveCount() {
+      const vocab = getActiveVocabulary();
+      document.getElementById("activeWordCount").textContent = `${vocab.length} fraser aktiva`;
+    }
+
+    /* =========================================================================
+       PAPER SELECTOR TAGS UI
+       ========================================================================= */
+    function renderPaperTags() {
+      const container = document.getElementById("paperTagsContainer");
+      container.innerHTML = "";
+
+      Object.keys(allAvailablePapers).forEach(key => {
+        const id = "tag_" + key.replace(/[^a-zA-Z0-9]/g, "_");
+        const isChecked = selectedPaperKeys.includes(key);
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = id;
+        checkbox.className = "tag-checkbox";
+        checkbox.checked = isChecked;
+
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            if (!selectedPaperKeys.includes(key)) selectedPaperKeys.push(key);
+          } else {
+            selectedPaperKeys = selectedPaperKeys.filter(k => k !== key);
+          }
+          updateActiveCount();
+          onPaperSelectionChanged();
+        });
+
+        const label = document.createElement("label");
+        label.htmlFor = id;
+        label.className = "tag-label";
+        label.innerHTML = `<span>📖</span> ${key}`;
+
+        container.appendChild(checkbox);
+        container.appendChild(label);
+      });
+
+      updateActiveCount();
+    }
+
+    function onPaperSelectionChanged() {
+      initMatchMode();
+      initQuizMode();
+      initFlashcardMode();
+    }
+
+    /* =========================================================================
+       1. MATCH PAIRS MODE
+       ========================================================================= */
+    let matchPairs = [];
+    let firstSelectedTile = null;
+    let matchScore = 0;
+
+    function initMatchMode() {
+      const vocab = getActiveVocabulary();
+      const grid = document.getElementById("matchGrid");
+      grid.innerHTML = "";
+      firstSelectedTile = null;
+      matchScore = 0;
+
+      if (vocab.length < 4) {
+        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: var(--text-muted);'>Välj minst ett kapitel med fraser ovan för att starta matchning.</p>";
+        document.getElementById("matchScore").textContent = "0";
+        document.getElementById("matchTotal").textContent = "0";
+        return;
+      }
+
+      // Pick up to 8 random pairs
+      const shuffled = [...vocab].sort(() => 0.5 - Math.random()).slice(0, 8);
+      document.getElementById("matchTotal").textContent = shuffled.length;
+      document.getElementById("matchScore").textContent = "0";
+
+      let tiles = [];
+      shuffled.forEach((item, index) => {
+        tiles.push({ id: index, text: item.sv, type: "sv", speakText: item.sv });
+        tiles.push({ id: index, text: item.en, type: "en", speakText: item.sv });
+      });
+
+      tiles.sort(() => 0.5 - Math.random());
+
+      tiles.forEach(tileData => {
+        const tile = document.createElement("div");
+        tile.className = "match-tile";
+        tile.textContent = tileData.text;
+        tile.dataset.id = tileData.id;
+        tile.dataset.type = tileData.type;
+        tile.dataset.speak = tileData.speakText;
+
+        tile.addEventListener("click", () => handleTileClick(tile, tileData));
+        grid.appendChild(tile);
+      });
+    }
+
+    function handleTileClick(tile, tileData) {
+      if (tile.classList.contains("matched") || tile.classList.contains("selected")) return;
+
+      if (tileData.type === "sv") {
+        speakSwedish(tileData.speakText);
+      }
+
+      tile.classList.add("selected");
+
+      if (!firstSelectedTile) {
+        firstSelectedTile = tile;
+      } else {
+        const firstId = firstSelectedTile.dataset.id;
+        const firstType = firstSelectedTile.dataset.type;
+        const currentId = tile.dataset.id;
+        const currentType = tile.dataset.type;
+
+        if (firstId === currentId && firstType !== currentType) {
+          // Success Match!
+          const tile1 = firstSelectedTile;
+          const tile2 = tile;
+          setTimeout(() => {
+            tile1.classList.remove("selected");
+            tile2.classList.remove("selected");
+            tile1.classList.add("matched");
+            tile2.classList.add("matched");
+          }, 200);
+          matchScore++;
+          document.getElementById("matchScore").textContent = matchScore;
+          firstSelectedTile = null;
+        } else {
+          // Mismatch
+          const tile1 = firstSelectedTile;
+          const tile2 = tile;
+          setTimeout(() => {
+            tile1.classList.add("shake");
+            tile2.classList.add("shake");
+          }, 150);
+          setTimeout(() => {
+            tile1.classList.remove("selected", "shake");
+            tile2.classList.remove("selected", "shake");
+          }, 650);
+          firstSelectedTile = null;
+        }
+      }
+    }
+
+    /* =========================================================================
+       2. QUIZ MODE
+       ========================================================================= */
+    function initQuizMode() {
+      const vocab = getActiveVocabulary();
+      currentQuizIndex = 0;
+      quizQuestions = [];
+
+      if (vocab.length < 4) {
+        document.getElementById("quizQuestionText").textContent = "Välj fler kapitel ovan för att starta quiz.";
+        document.getElementById("quizOptions").innerHTML = "";
+        return;
+      }
+
+      // Generate 10 randomized quiz questions
+      const pool = [...vocab].sort(() => 0.5 - Math.random()).slice(0, 10);
+      quizQuestions = pool.map(item => {
+        // Distractors
+        const distractors = vocab
+          .filter(v => v.en !== item.en)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 3)
+          .map(v => v.en);
+
+        const options = [...distractors, item.en].sort(() => 0.5 - Math.random());
+        return {
+          category: item.cat || "Ordförråd",
+          swedish: item.sv,
+          english: item.en,
+          options: options,
+          correct: item.en
+        };
+      });
+
+      renderCurrentQuiz();
+    }
+
+    function renderCurrentQuiz() {
+      const q = quizQuestions[currentQuizIndex];
+      if (!q) return;
+
+      document.getElementById("quizCategory").textContent = q.category;
+      document.getElementById("quizProgress").textContent = `Fråga ${currentQuizIndex + 1} av ${quizQuestions.length}`;
+      document.getElementById("quizQuestionText").textContent = q.swedish;
+      document.getElementById("nextQuizBtn").style.display = "none";
+      document.getElementById("quizExplanation").style.display = "none";
+
+      const optContainer = document.getElementById("quizOptions");
+      optContainer.innerHTML = "";
+
+      q.options.forEach(optText => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = optText;
+        btn.addEventListener("click", () => handleOptionClick(btn, optText, q));
+        optContainer.appendChild(btn);
+      });
+    }
+
+    function handleOptionClick(btn, selectedAnswer, question) {
+      const optButtons = document.querySelectorAll(".option-btn");
+      optButtons.forEach(b => b.disabled = true);
+
+      const explanation = document.getElementById("quizExplanation");
+      explanation.style.display = "block";
+
+      if (selectedAnswer === question.correct) {
+        btn.classList.add("correct");
+        explanation.innerHTML = `<strong>Rätt!</strong> <em>"${question.swedish}"</em> = "${question.correct}"`;
+      } else {
+        btn.classList.add("wrong");
+        optButtons.forEach(b => {
+          if (b.textContent === question.correct) b.classList.add("correct");
+        });
+        explanation.innerHTML = `<strong>Inte riktigt.</strong> Rätt svar för <em>"${question.swedish}"</em> är <strong>"${question.correct}"</strong>.`;
+      }
+
+      speakSwedish(question.swedish);
+
+      if (currentQuizIndex < quizQuestions.length - 1) {
+        document.getElementById("nextQuizBtn").style.display = "inline-flex";
+      }
+    }
+
+    /* =========================================================================
+       3. WORD SCRAMBLE / SYNTAX MODE
+       ========================================================================= */
+    function initScrambleMode() {
+      const item = SCRAMBLE_DATA[currentScrambleIndex];
+      if (!item) return;
+
+      document.getElementById("scrambleRuleBadge").textContent = item.rule;
+      document.getElementById("scrambleEnglish").textContent = `"${item.en}"`;
+      document.getElementById("scrambleFeedback").textContent = "";
+      document.getElementById("nextScrambleBtn").style.display = "none";
+      document.getElementById("checkScrambleBtn").style.display = "inline-flex";
+
+      const targetBox = document.getElementById("scrambleTarget");
+      const poolBox = document.getElementById("scramblePool");
+      targetBox.innerHTML = "";
+      poolBox.innerHTML = "";
+      scrambleSelectedWords = [];
+
+      const shuffledWords = [...item.words].sort(() => 0.5 - Math.random());
+
+      shuffledWords.forEach((word) => {
+        const chip = document.createElement("div");
+        chip.className = "scramble-chip";
+        chip.textContent = word;
+
+        chip.addEventListener("click", () => {
+          if (chip.parentElement === poolBox) {
+            targetBox.appendChild(chip);
+            scrambleSelectedWords.push(word);
+          } else {
+            poolBox.appendChild(chip);
+            const idx = scrambleSelectedWords.indexOf(word);
+            if (idx > -1) scrambleSelectedWords.splice(idx, 1);
+          }
+        });
+
+        poolBox.appendChild(chip);
+      });
+    }
+
+    function checkScrambleAnswer() {
+      const currentItem = SCRAMBLE_DATA[currentScrambleIndex];
+      const targetBox = document.getElementById("scrambleTarget");
+      const chips = Array.from(targetBox.children);
+      const userSentence = chips.map(c => c.textContent).join(" ");
+      const feedback = document.getElementById("scrambleFeedback");
+
+      if (userSentence.trim() === currentItem.correct.trim()) {
+        feedback.style.color = "var(--success)";
+        feedback.textContent = "Perfekt svensk ordföljd! 🎉";
+        speakSwedish(currentItem.correct);
+        document.getElementById("checkScrambleBtn").style.display = "none";
+        document.getElementById("nextScrambleBtn").style.display = "inline-flex";
+      } else {
+        feedback.style.color = "var(--danger)";
+        feedback.textContent = `Försök igen! Tänk på V2-placeringen av verbet.`;
+      }
+    }
+
+    /* =========================================================================
+       4. FLASHCARD MODE
+       ========================================================================= */
+    function initFlashcardMode() {
+      const vocab = getActiveVocabulary();
+      flashcardIndex = 0;
+      isFlipped = false;
+      flashcardList = [...vocab].sort(() => 0.5 - Math.random());
+      renderFlashcard();
+    }
+
+    function renderFlashcard() {
+      if (flashcardList.length === 0) {
+        document.getElementById("cardFront").textContent = "Inga kort i valda kapitel";
+        document.getElementById("cardBack").textContent = "";
+        return;
+      }
+
+      const item = flashcardList[flashcardIndex];
+      document.getElementById("cardCategory").textContent = item.cat || "Glosor";
+      document.getElementById("cardFront").textContent = item.sv;
+      document.getElementById("cardBack").textContent = item.en;
+
+      const back = document.getElementById("cardBack");
+      if (isFlipped) {
+        back.style.display = "block";
+      } else {
+        back.style.display = "none";
+      }
+    }
+
+    /* =========================================================================
+       5. WRITING SANDBOX
+       ========================================================================= */
+    function initWritingSandbox() {
+      const select = document.getElementById("writingPromptSelect");
+      select.innerHTML = "";
+
+      WRITING_SCENARIOS.forEach((sc, idx) => {
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = sc.title;
+        select.appendChild(opt);
+      });
+
+      function loadScenario(idx) {
+        const sc = WRITING_SCENARIOS[idx];
+        document.getElementById("writingInstructions").innerHTML = sc.instructions;
+        document.getElementById("targetWordIndicator").textContent = `Rekommenderat: ${sc.target}`;
+      }
+
+      select.addEventListener("change", (e) => loadScenario(e.target.value));
+      loadScenario(0);
+
+      const textarea = document.getElementById("essayInput");
+      const wordCountSpan = document.getElementById("wordCount");
+
+      textarea.addEventListener("input", () => {
+        const words = textarea.value.trim().split(/\s+/).filter(w => w.length > 0);
+        wordCountSpan.textContent = words.length;
+      });
+    }
+
+    /* =========================================================================
+       6. CUSTOM USER VOCABULARY ENGINE
+       ========================================================================= */
+    function initCustomDataEditor() {
+      renderCustomTable();
+
+      document.getElementById("saveCustomItemBtn").addEventListener("click", () => {
+        const paper = document.getElementById("newPaperName").value.trim();
+        const sv = document.getElementById("newSwedish").value.trim();
+        const en = document.getElementById("newEnglish").value.trim();
+
+        if (!paper || !sv || !en) {
+          alert("Fyll i både papperets namn, det svenska ordet och den engelska översättningen.");
+          return;
+        }
+
+        if (!customUserData[paper]) {
+          customUserData[paper] = [];
+        }
+
+        customUserData[paper].push({ sv, en, cat: paper });
+        localStorage.setItem("svenska_custom_papers", JSON.stringify(customUserData));
+
+        allAvailablePapers = { ...DEFAULT_GUIDE_DATA, ...customUserData };
+        if (!selectedPaperKeys.includes(paper)) selectedPaperKeys.push(paper);
+
+        document.getElementById("newSwedish").value = "";
+        document.getElementById("newEnglish").value = "";
+
+        renderPaperTags();
+        renderCustomTable();
+        alert(`Lade till "${sv}" i ${paper}!`);
+      });
+
+      document.getElementById("exportDataBtn").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(allAvailablePapers, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "svenska_yki_material.json";
+        a.click();
+      });
+    }
+
+    function renderCustomTable() {
+      const tbody = document.querySelector("#customItemsTable tbody");
+      tbody.innerHTML = "";
+
+      let count = 0;
+      Object.keys(customUserData).forEach(paper => {
+        customUserData[paper].forEach((item, index) => {
+          count++;
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><strong>${paper}</strong></td>
+            <td>${item.sv}</td>
+            <td>${item.en}</td>
+            <td><button class="btn btn-danger" style="padding: 2px 8px; font-size: 0.75rem;">Ta bort</button></td>
+          `;
+
+          tr.querySelector("button").addEventListener("click", () => {
+            customUserData[paper].splice(index, 1);
+            if (customUserData[paper].length === 0) delete customUserData[paper];
+            localStorage.setItem("svenska_custom_papers", JSON.stringify(customUserData));
+            allAvailablePapers = { ...DEFAULT_GUIDE_DATA, ...customUserData };
+            renderPaperTags();
+            renderCustomTable();
+          });
+
+          tbody.appendChild(tr);
+        });
+      });
+
+      if (count === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Inga egna ord tillagda ännu. Skriv in dina ord ovan!</td></tr>`;
+      }
+    }
+
+    /* =========================================================================
+       DOM LISTENERS & INITIALIZATION
+       ========================================================================= */
+    document.addEventListener("DOMContentLoaded", () => {
+      initSpeechEngine();
+      renderPaperTags();
+
+      // Navigation screen switcher
+      document.querySelectorAll(".mode-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".app-screen").forEach(s => s.classList.remove("active"));
+
+          btn.classList.add("active");
+          const targetId = btn.dataset.target;
+          document.getElementById(targetId).classList.add("active");
+        });
+      });
+
+      // Match mode controls
+      document.getElementById("resetMatchBtn").addEventListener("click", initMatchMode);
+
+      // Quiz mode controls
+      document.getElementById("quizSpeakBtn").addEventListener("click", () => {
+        const text = document.getElementById("quizQuestionText").textContent;
+        speakSwedish(text);
+      });
+
+      document.getElementById("nextQuizBtn").addEventListener("click", () => {
+        currentQuizIndex++;
+        renderCurrentQuiz();
+      });
+
+      // Scramble mode controls
+      document.getElementById("resetScrambleBtn").addEventListener("click", initScrambleMode);
+      document.getElementById("checkScrambleBtn").addEventListener("click", checkScrambleAnswer);
+      document.getElementById("nextScrambleBtn").addEventListener("click", () => {
+        currentScrambleIndex = (currentScrambleIndex + 1) % SCRAMBLE_DATA.length;
+        initScrambleMode();
+      });
+
+      // Flashcards controls
+      const cardBox = document.getElementById("flashcardBox");
+      cardBox.addEventListener("click", () => {
+        isFlipped = !isFlipped;
+        renderFlashcard();
+      });
+
+      document.getElementById("flipCardBtn").addEventListener("click", () => {
+        isFlipped = !isFlipped;
+        renderFlashcard();
+      });
+
+      document.getElementById("nextCardBtn").addEventListener("click", () => {
+        if (flashcardList.length > 0) {
+          flashcardIndex = (flashcardIndex + 1) % flashcardList.length;
+          isFlipped = false;
+          renderFlashcard();
+        }
+      });
+
+      document.getElementById("prevCardBtn").addEventListener("click", () => {
+        if (flashcardList.length > 0) {
+          flashcardIndex = (flashcardIndex - 1 + flashcardList.length) % flashcardList.length;
+          isFlipped = false;
+          renderFlashcard();
+        }
+      });
+
+      document.getElementById("cardSpeakBtn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        const text = document.getElementById("cardFront").textContent;
+        speakSwedish(text);
+      });
+
+      // Bulk paper tag buttons
+      document.getElementById("selectAllBtn").addEventListener("click", () => {
+        selectedPaperKeys = Object.keys(allAvailablePapers);
+        renderPaperTags();
+        onPaperSelectionChanged();
+      });
+
+      document.getElementById("clearAllBtn").addEventListener("click", () => {
+        selectedPaperKeys = [];
+        renderPaperTags();
+        onPaperSelectionChanged();
+      });
+
+      // Theme toggle
+      const themeToggle = document.getElementById("themeToggle");
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+      });
+
+      // Start all initial screens
+      initMatchMode();
+      initQuizMode();
+      initScrambleMode();
+      initFlashcardMode();
+      initWritingSandbox();
+      initCustomDataEditor();
+    });
+  </script>
+</body>
+</html>
